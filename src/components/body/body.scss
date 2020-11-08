@@ -1,6 +1,29 @@
+@import '../../varibalce';
 .body-container {
-  margin-top: 3px;
-  background-color: #f5db13;
+  background: linear-gradient(180deg, #f5db13 0%, #f2b807 100%);
   width: 100%;
-  height: 800px;
+  max-width: 1440px;
+  height: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  font-family: $mainFont;
+}
+.info-body {
+  position: absolute;
+  top: 181px;
+  left: 157px;
+}
+.title-body {
+  margin-bottom: 64px;
+  font-size: 74px;
+  width: 506px;
+  height: 252px;
+}
+.title-body span {
+  font-weight: 700;
+}
+.description-body {
+  width: 515px;
+  height: 111px;
+  font-size: 32px;
 }

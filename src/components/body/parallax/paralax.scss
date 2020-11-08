@@ -1,0 +1,31 @@
+.parallax-container {
+  width: 100%;
+}
+.poceball-big {
+  position: absolute;
+  top: 150px;
+  right: 0;
+  z-index: 3;
+}
+.cloud-big {
+  position: absolute;
+  top: 210px;
+  right: 80px;
+  z-index: 2;
+}
+.pikachu {
+  position: absolute;
+  top: 230px;
+  right: 160px;
+  z-index: 10;
+}
+.poceball-small {
+  position: absolute;
+  top: 230px;
+  right: 560px;
+}
+.cloud-small {
+  position: absolute;
+  top: 530px;
+  right: 560px;
+}

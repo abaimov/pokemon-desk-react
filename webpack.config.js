@@ -8,12 +8,13 @@ module.exports = {
 
   mode: NODE_ENV ? NODE_ENV : 'development',
   entry: path.resolve(__dirname, 'src/index.ts'),
-  output: { path: path.resolve(__dirname, 'dist'), filename: 'main.js' },
+  output: { path: path.resolve(__dirname, 'dist'), publicPath: '/', filename: 'main.js' },
+  watch: true,
+  watchOptions: { ignored: /node_modules/, poll: 1000 },
   module: {
     rules: [
       { test: /\.[tj]sx?$/, exclude: /node_modules/, use: ['ts-loader'] },
       { test: /\.css$/, use: ['style-loader', 'css-loader'] },
-      { test: /\.(png|jpe?g|gif)$/i, use: ['file-loader'] },
       {
         test: /\.scss$/,
         use: [
@@ -32,6 +33,18 @@ module.exports = {
           'sass-loader',
         ],
       },
+      {
+        test: /\.svg$/,
+        use: ['@svgr/webpack', 'url-loader'],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
+      },
     ],
   },
   plugins: [
@@ -43,6 +56,7 @@ module.exports = {
     port: 3000,
     open: true,
     hot: true,
+    historyApiFallback: true,
   },
   devtool: 'sourse-map',
 };
