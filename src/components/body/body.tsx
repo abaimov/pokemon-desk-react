@@ -1,6 +1,5 @@
 import React from 'react';
 import Footer from '../footer/footer';
-import Header from '../header/header';
 import './body.scss'
 import Button from './btn/btn';
 import Parallax from './parallax/paralax';

@@ -39,6 +39,9 @@
   text-decoration: none;
   position: relative;
 }
+.activeLink {
+  border: 5px solid red;
+}
 .nav-item a {
   color: $dark;
   text-decoration: none;

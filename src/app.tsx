@@ -1,15 +1,14 @@
+import { useRoutes } from "hookrouter";
 import React from "react";
-import Homepage from "./components/pages/homepage";
-import{BrowserRouter,Route} from 'react-router-dom'
 import './app.modules.scss'
+import routes from '../routes';
+import NotFoundPage from "./components/pages/notFound-page";
 
 
 const App = () => {
+  const match = useRoutes(routes)
  
-  return (   <BrowserRouter>
-                <Route path="/home" component={Homepage}/>
-                <Route path="/about" render={()=> "test"}/>
-              </BrowserRouter>)
+  return match || <NotFoundPage/>
 };
 
 export default App;
