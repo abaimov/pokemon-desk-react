@@ -1,8 +1,11 @@
+import { navigate } from 'hookrouter';
 import React from 'react';
+import { LinkEnum } from '../../../routes';
 import Footer from '../footer/footer';
 import './body.scss'
 import Button from './btn/btn';
 import Parallax from './parallax/paralax';
+
 
 
 
@@ -25,7 +28,7 @@ const Body = () => {
                         its strengths, 
                         disadvantages and abilities
                 </div>
-            <Button smallBtn={true}  onClick={()=>console.log('hello')}>See pokemons</Button>
+            <Button smallBtn={true} onClick={()=>navigate(LinkEnum.POKEDEX)}>See pokemons</Button>
                 </div>
             </div>
      <Footer/>

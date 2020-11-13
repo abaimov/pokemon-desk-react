@@ -1,3 +1,4 @@
+import { navigate } from 'hookrouter';
 import  React, {useEffect} from 'react';
 import './btn.scss';
 
@@ -7,7 +8,7 @@ interface ButtonProps{
 }
 
 const Button:React.FC<ButtonProps> = ({children ,onClick,smallBtn}) =>{
-    return <button type='button' className={smallBtn?'green-large-btn':'xxl-btn'}>
+    return <button onClick={()=>navigate('/pokedex')} type='button' className={smallBtn?'green-large-btn':'xxl-btn'}>
                 {children}
             </button>
 

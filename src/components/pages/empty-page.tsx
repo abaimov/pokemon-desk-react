@@ -8,7 +8,7 @@ interface EmptyPageProps {
 
 const EmptyPage:React.FC<EmptyPageProps> = ({title}) => {
     return (<div>
-        <Header/>
+
             This empty page {title}
             </div>);
 }

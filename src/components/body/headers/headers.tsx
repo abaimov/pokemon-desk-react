@@ -10,7 +10,7 @@ interface HeadersProps {
     
 }
 
-const Heading:React.FC<HeadersProps> = ({num,children, className}) =>{
+const Heading:React.FC<HeadersProps> = ({num,children}) =>{
     return React.createElement(
         `h${num}`,
         {children}

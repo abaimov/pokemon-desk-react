@@ -12,26 +12,34 @@ interface GenMenu {
 
 }
 
+export enum LinkEnum {
+    HOME = '/',
+    POKEDEX = '/pokedex',
+    LEGENDARIES = '/legendaries',
+    DOCUMENTATION = '/documentation'
+
+}
+
 export const GENERAL_MENU = [
     {   
         title: 'Home',
-        link:'/',
+        link:LinkEnum.HOME,
         component:() => <Homepage/>,
    
     },
     {
         title: 'Pokédex',
-        link:'/pokedex',
+        link:LinkEnum.POKEDEX,
         component:() => <Pokedex />
     },
     {
         title: 'Legendaries',
-        link:'/legendaries',
+        link:LinkEnum.LEGENDARIES,
         component:() => <EmptyPage title='Legendaries'/>
     },
     {
         title: 'Documentation',
-        link:'/documentation',
+        link:LinkEnum.DOCUMENTATION,
         component:() => <EmptyPage title='Documentation'/>
         
     },

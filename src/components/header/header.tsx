@@ -36,6 +36,7 @@ interface iMenu  {
 
 const Header = () => {
 
+    console.log('###:HEADER');
     
 
     return (<div className='menu-container'>
@@ -49,4 +50,4 @@ const Header = () => {
 }
 
 
-export default Header
+export default React.memo(Header) ;
