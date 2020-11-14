@@ -35,10 +35,7 @@ interface iMenu  {
 // ]
 
 const Header = () => {
-
-    console.log('###:HEADER');
     
-
     return (<div className='menu-container'>
                 <div className='wrap'>
                     <div className="logo"><HeaderLogo/></div>

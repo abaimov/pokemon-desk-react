@@ -2,104 +2,95 @@ import React, { useEffect, useState } from 'react';
 import './pokemon-card.scss';
 import Heading from '../headers/headers';
 
-const usePokemons = () => { 
-    const [data,setData] = useState(0)
-    const [pokemons,setPokemons] = useState([])
-    const [isLoading,setIsLoading] = useState(true)
-    const [isError,setIsError] = useState(false)
 
-    useEffect(()=>{
 
-        const getPokemons = async () => {
-            setIsLoading(true);
-
-            try {
-                const response = await fetch('http://zar.hosthot.ru/api/v1/pokemons');
-                const result = await response.json();
-                setData(result);
-                setPokemons(data.pokemons);
-            } catch (e){
-                setIsError(true);
-            }finally {
-                setIsLoading(false);
-            }
-        }
-
-        getPokemons();
-    },[])
-
-return {
-
-    data,
-    isLoading,
-    isError
-}
-
-}
 
 
 const PokemonCard = () => {
 
-    const {
-        data,
-        isLoading,
-        isError
-    } = usePokemons();
+    const [totalPokemons,setTotalPokemons] = useState(0);
+    const [pokemons,setPokemons] = useState([]);
+    const [isLoading,setIsLoading] = useState(true);
+    const [isError,setIsError] = useState(false);
+    
+
+    useEffect (()=>{
+
+        
+        setIsLoading(true)
+        fetch('http://zar.hosthot.ru/api/v1/pokemons')
+        .then(res => res.json())
+        .then(data => {
+            setTotalPokemons(data.total)
+            setPokemons(data.pokemons)
+            setIsError(false)
+        }).catch(()=>{
+            setIsError(true)
+ 
+        }
+            
+        ).finally(()=>{
+            setIsLoading(false)
+        })
+        
+    
+    },[])
 
     if(isLoading){
-        return <div>Loading...</div>
+        return <div>LOADING</div>
     }
     if(isError){
-        return <div>Error</div>
+        return <div>EROROOO</div>
     }
 
-    return (
-        <div>
-            <div className='container-pokedex'>
-                <div>{data.pokemons.map(item => <div>{item.name}</div>)}</div>
-                <div className='title-pokedex'>{data.total} Pokemons for you to choose your favorite</div>
-                <div className='input-pokedex'><input type="text" placeholder='Encuentra tu pokémon...'/></div>
-            </div>
-            <PokemonInfo data={data}/>
-        </div>
+    return <div>
+    <div className='container-pokedex'>
+        <div className='title-pokedex'>{totalPokemons} Pokemons for you to choose your favorite</div>
+        <div className='input-pokedex'><input type="text" placeholder='Encuentra tu pokémon...'/></div>
+    </div>
+    <PokemonInfo pokemons={pokemons}/>
+</div>
 
- 
 
-    );
-};
+    }
+
 
 export default PokemonCard;
 
 
+interface PokemonInfoProps {
+    pokemons:any
+}
 
+const PokemonInfo:React.FC<PokemonInfoProps> = ({pokemons}) => {
 
-const PokemonInfo = ({data}) => {
-
-    return  <div className='root' >
-    <div className='infoWrap'>
-       {data.pokemons.map(item => ( <Heading num={1}  className='titleName'>{item.name}</Heading>))}
-        <div className='statWrap'>
-            <div className='statItem'>
-                <div className='statValue'>
-                    52
+    return  <div className='container-pokemon-info'>
+        {pokemons.map((item:any) => (
+                <div className='root-pokemon-info' key={item.id}>
+                <div className='infoWrap'>
+        <Heading num={1}  className='titleName'>{item.name}</Heading>
+                    <div className='statWrap'>
+                        <div className='statItem'>
+                            <div className='statValue'>
+                               {item.stats.attack}
+                            </div>
+                            Attack
+                        </div>
+                        <div className='statItem'>
+                            <div className='statValue'>
+                                {item.stats.defense}
+                            </div>
+                            Defense
+                        </div>
+                    </div>
+                    <div className='labelWrap'>
+                        <span className='label'>Fire</span>
+                    </div>
                 </div>
-                Attack
-            </div>
-            <div className='statItem'>
-                <div className='statValue'>
-                    43
+                <div className='pictureWrap'>
+                    <img src={item.img} alt={item.name} />
                 </div>
-                Defense
             </div>
-        </div>
-        <div className='labelWrap'>
-            <span className='label'>Fire</span>
-        </div>
-    </div>
-    <div className='pictureWrap'>
-        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png" alt="Charmander" />
-    </div>
-</div>
-
-
+        ))}
+            </div>
 }
