@@ -1,40 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import './pokemon-card.scss';
+import React,{useMemo, useState} from 'react';
+import useData from '../../hook/getData';
 import Heading from '../headers/headers';
-
-
-
-
+import './pokemon-card.scss';
 
 const PokemonCard = () => {
 
-    const [totalPokemons,setTotalPokemons] = useState(0);
-    const [pokemons,setPokemons] = useState([]);
-    const [isLoading,setIsLoading] = useState(true);
-    const [isError,setIsError] = useState(false);
-    
+    const [searchValue,setSearchValue] = useState('');
+    const query =useMemo(()=> ({
+        name:searchValue
+    }),[searchValue])
 
-    useEffect (()=>{
+    const{ 
+        totalPokemons,
+        pokemons,
+        isLoading,
+        isError,
+        
+    } = useData('getPokemons',query)
 
+
+    const handleSearchChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+        setSearchValue(e.target.value);
         
-        setIsLoading(true)
-        fetch('http://zar.hosthot.ru/api/v1/pokemons')
-        .then(res => res.json())
-        .then(data => {
-            setTotalPokemons(data.total)
-            setPokemons(data.pokemons)
-            setIsError(false)
-        }).catch(()=>{
-            setIsError(true)
- 
-        }
-            
-        ).finally(()=>{
-            setIsLoading(false)
-        })
-        
-    
-    },[])
+
+    }
 
     if(isLoading){
         return <div>LOADING</div>
@@ -45,10 +34,10 @@ const PokemonCard = () => {
 
     return <div>
     <div className='container-pokedex'>
-        <div className='title-pokedex'>{totalPokemons} Pokemons for you to choose your favorite</div>
-        <div className='input-pokedex'><input type="text" placeholder='Encuentra tu pokémon...'/></div>
+        <div className='title-pokedex'>{!isLoading && totalPokemons} Pokemons for you to choose your favorite</div>
+        <div className='input-pokedex'><input value={searchValue} onChange={handleSearchChange} type="text" placeholder='Encuentra tu pokémon...'/></div>
     </div>
-    <PokemonInfo pokemons={pokemons}/>
+    <PokemonInfo pokemons={pokemons} isLoading/>
 </div>
 
 
@@ -59,13 +48,14 @@ export default PokemonCard;
 
 
 interface PokemonInfoProps {
-    pokemons:any
+    pokemons:any,
+    isLoading:boolean
 }
 
-const PokemonInfo:React.FC<PokemonInfoProps> = ({pokemons}) => {
+const PokemonInfo:React.FC<PokemonInfoProps> = ({pokemons,isLoading}) => {
 
     return  <div className='container-pokemon-info'>
-        {pokemons.map((item:any) => (
+        {isLoading && pokemons.map((item:any) => (
                 <div className='root-pokemon-info' key={item.id}>
                 <div className='infoWrap'>
         <Heading num={1}  className='titleName'>{item.name}</Heading>

@@ -3,10 +3,10 @@ import PokemonCard from '../body/pokemon-card/pokemon-card';
 
 
 const Pokedex = () => {
-    return <div>
+    return  <div>
    
-        <PokemonCard/>
-    </div>
+                <PokemonCard/>
+            </div>
 }
 
 
