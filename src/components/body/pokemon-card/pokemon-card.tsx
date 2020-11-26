@@ -1,5 +1,6 @@
-import React,{useMemo, useState} from 'react';
+import React,{useEffect, useMemo, useState} from 'react';
 import useData from '../../hook/getData';
+import useDebounce from '../../hook/useDebounce';
 import Heading from '../headers/headers';
 import './pokemon-card.scss';
 
@@ -10,6 +11,8 @@ const PokemonCard = () => {
         name:searchValue
     }),[searchValue])
 
+    const debounceValue = useDebounce(searchValue,1000)
+
     const{ 
         totalPokemons,
         pokemons,
@@ -17,6 +20,11 @@ const PokemonCard = () => {
         isError,
         
     } = useData('getPokemons',query)
+
+    useEffect(()=>{
+        console.log('lllllll',debounceValue);
+        
+    },[debounceValue])
 
 
     const handleSearchChange = (e:React.ChangeEvent<HTMLInputElement>) => {
