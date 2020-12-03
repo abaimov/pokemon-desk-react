@@ -1,7 +1,7 @@
 import  { useEffect, useState } from 'react';
 import req from '../util/request';
 
-const useData = (endpoint:string,query:object) => {
+const useData =(endpoint:string,query:object) => {
 
     const [totalPokemons,setTotalPokemons] = useState(0);
     const [pokemons,setPokemons] = useState(null);
